@@ -78,14 +78,14 @@ public class HammurabiTest {
     Hammurabi hammurabi = new Hammurabi();
 
     @Test
-    public void testplagueDeaths(){
+    public void testPlagueDeaths(){
             int population = 100;
             boolean actual = hammurabi.plagueDeaths(population) <= 50;
             Assert.assertTrue(actual);
     }
 
     @Test
-    public void teststarvationDeaths(){
+    public void testStarvationDeaths(){
             int population = 100;
             int grainNeeded = population * 20;
             int bushelsFedToPeople = 2000;
@@ -97,7 +97,7 @@ public class HammurabiTest {
     }
 
     @Test
-    public void testuprising(){
+    public void testUprising(){
         int population = 100;
         int howManyPeopleStarved = 100;
         boolean actual = hammurabi.uprising(population,howManyPeopleStarved);
@@ -106,22 +106,45 @@ public class HammurabiTest {
 
     @Test
     public void testimmigrants(){
+        int population = 100;
+        int acresOwned = 1000;
+        int grainInStorage = 3000;
+        int expectedJoining = (20 * acresOwned + grainInStorage) / (100 * population) +1;
+        int actual = hammurabi.immigrants(population,acresOwned,grainInStorage);
+        Assert.assertEquals(expectedJoining, actual);
+
 
     }
 
     @Test
     public void testharvest(){
+        int acres = 1000;
+        int expectedMinYeild = 1;
+        int expectedMaxYeild = 6;
+
+        int actualBushelsHaversted = hammurabi.harvest(acres);
+
+        Assert.assertTrue(actualBushelsHaversted >= acres * expectedMinYeild );
+        Assert.assertTrue((actualBushelsHaversted <= acres * expectedMaxYeild));
+    }
+
+    @Test
+    public void testGrainEatenByRats(){
+        int bushels = 100;
+        double ratEatRate = 0.3;
+
+        int actualGrainEaten = hammurabi.grainEatenByRats(bushels);
+        Assert.assertTrue(actualGrainEaten >= 0);
+        Assert.assertTrue(actualGrainEaten <= bushels * ratEatRate);
 
     }
 
     @Test
-    public void testgrainEatenByRats(){
+    public void testNewCostOfLand(){
+        int actual = hammurabi.newCostOfLand();
 
-    }
-
-    @Test
-    public void testnewCostOfLand(){
-
+        Assert.assertTrue(actual >= 17);
+        Assert.assertTrue(actual <= 23);
     }
 
 
